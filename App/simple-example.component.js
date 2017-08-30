@@ -15,9 +15,9 @@
       vm.fullName = '';
 
       vm.submit = function () {
-        vm.fullName = vm.name.first + ' ' + vm.name.last;
+        vm.fullName = '**' + vm.name.first + ' ' + vm.name.last + '**';
       }
-    }
-
+    },
+    templateUrl: 'App/simple-example.component.html'    
   });
 })();
