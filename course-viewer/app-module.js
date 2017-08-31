@@ -1,9 +1,14 @@
 (function () {
   'use strict';
 
-  var appModule = angular.module('courseViewer', ['ui.router']);
+  var appModule = angular.module('courseViewer', ['securityModule', 'ui.router']);
 
+  appModule.value('apiBase', 'http://pluralsightcourseviewer.azurewebsites.net/api/courseviewer/');
   appModule.value('componentBorders', true);
+
+  appModule.run(function($rootScope) {
+  $rootScope.$on("stateChangeError", console.log.bind(console));
+  });
 
   appModule.run(function (componentBorders) {
     if (componentBorders) {
@@ -26,7 +31,7 @@
     }
   });
 
-  appModule.config(function ($stateProvider) {
+  appModule.config(function ($stateProvider, $urlRouterProvider) {
 
     var states = [
       {
@@ -75,6 +80,9 @@
         template: '<author-list></author-list>'
       }
     ];
+
+    $urlRouterProvider.when('/course/:courseId', '/course/:courseId/modules');
+    $urlRouterProvider.otherwise('/');
 
     states.forEach(function (state) {
       $stateProvider.state(state);
