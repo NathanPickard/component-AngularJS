@@ -6,11 +6,15 @@
 
     },
     controllerAs: 'vm',
-    controller: function () {
+    controller: function (apiBase, $http) {
       var vm = this;
 
+      vm.authors = null;
+
       vm.$onInit = function () {
-        vm.authorId = 101
+        $http.get(apiBase + 'authors').then(function(result) {
+          vm.authors = result.data;
+        });
       }
     },
     templateUrl: 'course-viewer/author/author-list.component.html'

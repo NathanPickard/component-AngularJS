@@ -6,8 +6,8 @@
   appModule.value('apiBase', 'http://pluralsightcourseviewer.azurewebsites.net/api/courseviewer/');
   appModule.value('componentBorders', true);
 
-  appModule.run(function($rootScope) {
-  $rootScope.$on("stateChangeError", console.log.bind(console));
+  appModule.run(function ($rootScope) {
+    $rootScope.$on("stateChangeError", console.log.bind(console));
   });
 
   appModule.run(function (componentBorders) {
@@ -78,9 +78,32 @@
         name: 'authors',
         url: '/authors',
         template: '<author-list></author-list>'
+      },
+      {
+        name: 'author',
+        url: '/author/{authorId}',
+        resolve: {
+          authorId: function ($stateParams) {
+            return $stateParams.authorId;
+          }
+        },
+        template: '<author author-id="$resolve.authorId"></author'
+      },
+      {
+        name: 'author.bio',
+        url: '/bio',
+        template: '<author-bio author="vm.author"></author.bio>'
+      },
+      {
+      name: 'author.courses',
+      url: '/courses',
+      template: '<author-courses author="vm.author"></author-courses>'
       }
+
+
     ];
 
+    $urlRouterProvider.when('/author/:authorId', '/author/:authorId/courses');
     $urlRouterProvider.when('/course/:courseId', '/course/:courseId/modules');
     $urlRouterProvider.otherwise('/');
 
