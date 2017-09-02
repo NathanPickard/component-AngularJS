@@ -11,6 +11,13 @@
           return result.data;
         });
     }
+
+    self.getCourse = function (courseId) {
+      return $http.get(apiBase + 'course/' + courseId + '/full')
+        .then(function (result) {
+          return result.data;
+        });
+    }
     return this;
 
   });

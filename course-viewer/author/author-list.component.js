@@ -6,14 +6,14 @@
 
     },
     controllerAs: 'vm',
-    controller: function (apiBase, $http) {
+    controller: function (authorService) {
       var vm = this;
 
       vm.authors = null;
 
       vm.$onInit = function () {
-        $http.get(apiBase + 'authors').then(function(result) {
-          vm.authors = result.data;
+        authorService.getAllAuthors().then(function (authors) {
+          vm.authors = authors;
         });
       }
     },
