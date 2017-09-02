@@ -6,13 +6,18 @@
       courseId: '<'
     },
     controllerAs: 'vm',
-    controller: function() {
+    controller: function (courseService, authenticationService) {
       var vm = this;
 
+      vm.course = null;
+      vm.authenticationService = authenticationService;
+
       vm.$onInit = function () {
-        vm.course = {
-          CourseId: vm.courseId
-        };
+        if (vm.courseId) {
+          courseService.getCourse(vm.courseId).then(function (course) {
+            vm.course = course;
+          });
+        }
       }
     },
     templateUrl: 'course-viewer/course/course.component.html'
