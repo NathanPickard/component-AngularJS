@@ -70,6 +70,53 @@
           });
       }
     }
+
+    self.updateRecentlyViewedCourse = function (userName, courseId) {
+      var accessToken = authenticationService.getAccessToken();
+      if (accessToken != '') {
+        var recentModel = {
+          UserName: userName,
+          CourseId: courseId
+        };
+        return $http({
+          url: apiBase + 'courses/recent',
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + accessToken },
+          data: recentModel
+        })
+          .then(function (result) {
+
+          });
+      }
+    }
+
+    self.getRecentlyViewedCourses = function (userName) {
+      var accessToken = authenticationService.getAccessToken();
+      if (accessToken != '') {
+        return $http({
+          url: apiBase + 'courses/recent/' + userName + '/get',
+          method: 'GET',
+          headers: { 'Authorization': 'Bearer ' + accessToken }
+        })
+          .then(function (result) {
+            return result.data;
+          });
+      }
+    }
+
+    self.clearRecentlyViewedList = function (userName) {
+      var accessToken = authenticationService.getAccessToken();
+      if (accessToken != '') {
+        return $http({
+          url: apiBase + 'courses/recent/' + userName + '/clear',
+          method: 'GET',
+          headers: { 'Authorization': 'Bearer ' + accessToken }
+        })
+          .then(function (result) {
+
+          });
+      }
+    }
     return this;
 
   });

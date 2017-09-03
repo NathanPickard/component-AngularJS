@@ -16,6 +16,11 @@
         if (vm.courseId) {
           courseService.getCourse(vm.courseId).then(function (course) {
             vm.course = course;
+            if (authenticationService.loggedIn) {
+              courseService.updateRecentlyViewedCourse(authenticationService.userName, vm.course.CourseId).then(function (recentItem) {
+
+              });
+            }
           });
         }
       }

@@ -6,14 +6,17 @@
       authorId: '<'
     },
     controllerAs: 'vm',
-    controller: function () {
+    controller: function (authorService) {
       var vm = this;
 
       vm.author = null;
 
       vm.$onInit = function () {
-        if (!vm.authorId)
-          vm.authorId = 101;
+        if(vm.authorId) {
+          authorService.getAuthor(vm.authorId).then(function(author) {
+            vm.author = author;
+          });
+        }
       }
     },
     templateUrl: 'course-viewer/author/author.component.html'
